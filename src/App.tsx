@@ -1,4 +1,5 @@
 import './App.css'
+import { TypicalForm } from './TypicalForm'
 import { FoodDeliveryForm } from './FoodDeliveryForm'
 
 function App() {
@@ -6,9 +7,12 @@ function App() {
   return (
     <>
     <div className="container">
-      <div className="mx-5">
-        <FoodDeliveryForm/>
-      </div>
+        <div className="mx-5 mb-3">
+          <TypicalForm/>
+        </div>
+        <div className="mx-5">
+          <FoodDeliveryForm/>
+        </div>   
     </div>
     </>
   )

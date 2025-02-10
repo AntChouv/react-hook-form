@@ -1,72 +1,87 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
+// import { useForm } from 'react-hook-form'
+// type FoodDeliveryFormType = {
+//     customerName : string,
+//     mobile : string
+// }
+
+// export const FoodDeliveryForm = () => {//SIMPLE FORM USING REACT HOOK FORM
+//     const { register, handleSubmit } = useForm<FoodDeliveryFormType>()
+
+//     const onSubmit = (formData:FoodDeliveryFormType) =>{
+//         console.log("form data",formData)
+//     }
+
+//     const onError = errors => {
+//         console.log("validation errors",errors)
+//     }
+//   return (
+//     <form onSubmit={handleSubmit(onSubmit,onError)}>
+//         <div className='form-floating mb-3'>
+//             <input
+//                 className='form-control' 
+//                 type="text" 
+//                 placeholder="Customer Name"
+//                 {...register('customerName',{required: "Customer name is required"})}
+//              />
+//             <label>Customer Name</label>
+//         </div>
+//         <div className='form-floating mb-3'>
+//             <input
+//                 className='form-control' 
+//                 type="text" 
+//                 placeholder="Mobile"
+//                 {...register('mobile',{required: "Mobile is required"})}
+//              />
+//             <label>Mobile</label>
+//         </div>
+//         <button type='submit' className='btn btn-primary'>Submit</button>
+//     </form>
+//   )
+// }
+
+
+import { useForm } from 'react-hook-form'
 type FoodDeliveryFormType = {
     customerName : string,
     mobile : string
 }
 
-type FoodDeliveryFormErrorType = {
-    customerName : string,
-    mobile : string
-}
-
-export const FoodDeliveryForm = () => {
-    const [values, setValues] = useState<FoodDeliveryFormType>({
-        customerName : '',
-        mobile : ''
-    })
-    const [errors, setErrors] = useState<FoodDeliveryFormErrorType>({
-        customerName : '',
-        mobile : ''
-    })
-    const handleInputChange = (e:ChangeEvent<HTMLInputElement>) => {
-        const {name,value} = e.target
-        setValues({...values, [name]:value})
+export const FoodDeliveryForm = () => {//SIMPLE FORM USING REACT HOOK FORM
+    const { register, handleSubmit } = useForm<FoodDeliveryFormType>()
+    const onSubmit = (formData:FoodDeliveryFormType) =>{
+        console.log("Form data: ", formData)
     }
-    const validateFormData = () =>{
-        const tempErrors: FoodDeliveryFormErrorType = {
-            customerName : '',
-            mobile : ''
-        }
-        if(values.customerName == "" )
-            tempErrors.customerName = "Customer Name is Required"
-        if(values.mobile == "" )
-            tempErrors.mobile = "Mobile is Required"
-        setErrors(tempErrors)
-
-        return Object.values(tempErrors).every(x=>x=='')
-    }
-    const onSubmit = (e:SyntheticEvent<HTMLFormElement>) =>{
-        e.preventDefault()
-        if (validateFormData())
-            console.log('form data', values)
-        else
-            console.log("Form is invalid")
-    }
-  return (
-    <form onSubmit={onSubmit}>
-        <div className='form-floating mb-3'>
-            <input
-                className='form-control' 
-                type="text" 
-                name='customerName'
-                placeholder="Customer Name"
-                value={values.customerName}
-                onChange={handleInputChange}
-             />
-            <label>Customer Name</label>
-        </div>
-        <div className='form-floating mb-3'>
-            <input
-                className='form-control' 
-                type="text" 
-                name='mobile'
-                placeholder="Mobile"
-                value={values.mobile}
-                onChange={handleInputChange}
-             />
-            <label>Mobile</label>
-        </div>
-        <button type='submit' className='btn btn-primary'>Submit</button>
-    </form>
+    // const onSubmit = (e:SyntheticEvent<HTMLFormElement>) =>{
+    //     e.preventDefault()
+    //     console.log(e)
+    // }
+    return (
+        <form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>{/*Calling the handleSubmit we will not need to preventDefault() 
+                                                                    as the function handles this along with other things*/}
+            <div className='form-floating mb-3'>
+                <input
+                    className='form-control' 
+                    type="text" 
+                    placeholder="Customer Name"
+                    // name={customerControl.name}
+                    // ref={customerControl.ref}
+                    // onChange={customerControl.onChange}
+                    // onBlur={customerControl.onBlur}
+                    //The above 4 lines are the same with the line under this comment
+                    {...register('customerName',{ value : 'Fiona' })}
+                />
+                <label>Customer Name</label>
+            </div>
+            <div className='form-floating mb-3'>
+                <input
+                    className='form-control' 
+                    type="text" 
+                    placeholder="Mobile"
+                    {...register('mobile',{ value : '0000' })}
+                />
+                <label>Mobile</label>
+            </div>
+            <button type='submit' className='btn btn-primary'>Submit</button>
+        </form>
   )
 }
