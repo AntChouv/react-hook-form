@@ -1,4 +1,5 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
+import { getRenderCount } from './utils/useRenderCount'
 type FoodDeliveryFormType = {
     customerName : string,
     mobile : string
@@ -8,7 +9,7 @@ type FoodDeliveryFormErrorType = {
     customerName : string,
     mobile : string
 }
-
+const RenderCount = getRenderCount();
 export const TypicalForm = () => {//TYPICAL FORM
     const [values, setValues] = useState<FoodDeliveryFormType>({
         customerName : '',
@@ -44,6 +45,7 @@ export const TypicalForm = () => {//TYPICAL FORM
     }
   return (
     <form onSubmit={onSubmit}>
+        <RenderCount/>
         <div className='form-floating mb-3'>
             <input
                 className='form-control' 
